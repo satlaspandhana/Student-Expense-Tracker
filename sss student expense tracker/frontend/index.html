@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A simple expense tracker made for college students.">
+  <title>CampusCash — Student Expense Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="CampusCash home"><span class="brand-mark">C</span><span>Campus<span class="brand-accent">Cash</span></span></a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#dashboard">Dashboard</a><a href="#transactions">Transactions</a><a href="#about">About</a>
+    </nav>
+    <a class="nav-cta" href="#add-expense">+ Add expense</a>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> YOUR MONEY, IN YOUR CONTROL</span>
+        <h1>Make every rupee<br> <span>count.</span></h1>
+        <p>A calmer way to track your spending, build better habits, and stay on top of your student budget.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#add-expense">Track an expense <span aria-hidden="true">↗</span></a><a class="text-link" href="#dashboard">Explore dashboard <span aria-hidden="true">↓</span></a></div>
+        <div class="hero-proof"><div class="avatar-stack" aria-hidden="true"><span>₹</span><span>✓</span><span>+</span></div><span>Small steps. Smarter spending.</span></div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a monthly budget card">
+        <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+        <div class="floating-card mini-card"><span class="mini-icon">↗</span><span><b>Spend mindfully</b><small>One day at a time</small></span></div>
+        <div class="budget-card">
+          <div class="budget-card-top"><span>MONTHLY OVERVIEW</span><span class="tiny-dots">•••</span></div>
+          <div class="budget-label">Available balance</div><div class="budget-amount">₹<span id="hero-balance">—</span></div>
+          <div class="budget-rule"></div><div class="budget-card-bottom"><span><i class="legend income-legend"></i>Budget</span><span id="hero-budget">Set your budget</span></div>
+          <div class="progress-track"><span id="hero-progress"></span></div>
+          <div class="budget-card-foot"><span>Spend with intention</span><span>✦</span></div>
+        </div>
+        <div class="floating-card tip-card"><span class="tip-icon">✦</span><span><b>Little habits add up</b><small>Keep your goals in sight</small></span></div>
+        <div class="art-spark spark-one">✳</div><div class="art-spark spark-two">✦</div>
+      </div>
+    </section>
+
+    <section class="dashboard-section section-wrap" id="dashboard">
+      <div class="section-heading"><div><span class="eyebrow">YOUR SNAPSHOT</span><h2>Money at a glance</h2><p>Know where you stand this month.</p></div><div class="month-chip"><span class="month-dot"></span><span id="current-month">This month</span></div></div>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <div class="stats-grid">
+        <article class="stat-card stat-dark"><div class="stat-top"><span>Total spent</span><span class="stat-icon">↘</span></div><div class="stat-value" id="total-spent">₹0</div><div class="stat-foot"><span class="stat-foot-dot"></span>Expenses recorded this month</div><div class="stat-decoration"></div></article>
+        <article class="stat-card"><div class="stat-top"><span>Monthly budget</span><span class="stat-icon icon-purple">◎</span></div><div class="stat-value" id="total-budget">₹0</div><div class="stat-foot" id="budget-foot">Set a budget to get started</div><button class="small-action" id="edit-budget-btn" type="button">Set budget <span>↗</span></button></article>
+        <article class="stat-card"><div class="stat-top"><span>Budget remaining</span><span class="stat-icon icon-green">⌁</span></div><div class="stat-value" id="remaining-budget">₹0</div><div class="stat-foot" id="remaining-foot">Your spending room</div><div class="mini-progress"><span id="budget-progress"></span></div></article>
+        <article class="stat-card"><div class="stat-top"><span>Transactions</span><span class="stat-icon icon-orange">▤</span></div><div class="stat-value" id="transaction-count">0</div><div class="stat-foot">A clearer picture, one entry at a time</div></article>
+      </div>
+      <div class="content-grid">
+        <section class="panel category-panel"><div class="panel-heading"><div><h3>Spending categories</h3><p>Your spending breakdown for this month</p></div><span class="panel-symbol">◔</span></div><div id="category-breakdown" class="category-breakdown"><div class="empty-inline">Add an expense to see your breakdown.</div></div></section>
+        <section class="panel budget-panel"><div class="panel-heading"><div><h3>Budget check-in</h3><p>A small check-in can make a big difference.</p></div><span class="panel-symbol green-symbol">✦</span></div><div class="budget-check-content"><div class="check-illustration">₹</div><div><strong id="budget-check-title">Start with a simple budget</strong><p id="budget-check-copy">Choose a monthly amount that feels realistic for you.</p><button class="text-button" id="budget-check-btn" type="button">Set monthly budget <span>→</span></button></div></div></section>
+      </div>
+    </section>
+
+    <section class="transactions-section section-wrap" id="transactions">
+      <div class="section-heading"><div><span class="eyebrow">RECENT ACTIVITY</span><h2>Your transactions</h2><p>Every little expense, all in one place.</p></div><a href="#add-expense" class="button button-outline">+ New transaction</a></div>
+      <div class="panel transactions-panel">
+        <div class="toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Search expenses..." aria-label="Search expenses"></label><div class="filters"><label class="sr-only" for="category-filter">Filter by category</label><select id="category-filter"><option value="">All categories</option><option>Food</option><option>Transport</option><option>Education</option><option>Shopping</option><option>Entertainment</option><option>Health</option><option>Other</option></select><label class="sr-only" for="sort-filter">Sort transactions</label><select id="sort-filter"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="highest">Highest amount</option><option value="lowest">Lowest amount</option></select></div></div>
+        <div class="table-wrap"><table><thead><tr><th>EXPENSE</th><th>CATEGORY</th><th>DATE</th><th class="amount-col">AMOUNT</th><th class="actions-col">ACTIONS</th></tr></thead><tbody id="transactions-body"><tr><td colspan="5" class="table-message">Connect your backend to load transactions.</td></tr></tbody></table></div>
+        <div class="table-footer"><span id="results-count">Showing 0 transactions</span><span class="secure-note"><span>●</span> Saved to your database</span></div>
+      </div>
+    </section>
+
+    <section class="add-section section-wrap" id="add-expense">
+      <div class="add-intro"><span class="eyebrow">A FRESH START</span><h2>Every expense<br>has a story.</h2><p>Capture the little things now, so you can make bigger plans later.</p><div class="add-quote">“A budget is telling your money where to go instead of wondering where it went.”<small>— Dave Ramsey</small></div></div>
+      <div class="panel form-panel"><div class="form-heading"><div class="form-icon">＋</div><div><h3 id="form-title">Add an expense</h3><p>It only takes a moment.</p></div></div>
+        <form id="expense-form" novalidate>
+          <input type="hidden" id="expense-id">
+          <div class="field"><label for="expense-title">What did you spend on?</label><input id="expense-title" name="title" type="text" maxlength="100" placeholder="e.g. Lunch with friends" required><small class="field-error" id="title-error"></small></div>
+          <div class="form-row"><div class="field"><label for="expense-amount">Amount (₹)</label><div class="input-prefix"><span>₹</span><input id="expense-amount" name="amount" type="number" min="0.01" max="10000000" step="0.01" placeholder="0.00" required></div><small class="field-error" id="amount-error"></small></div><div class="field"><label for="expense-category">Category</label><select id="expense-category" name="category" required><option value="">Choose one</option><option>Food</option><option>Transport</option><option>Education</option><option>Shopping</option><option>Entertainment</option><option>Health</option><option>Other</option></select><small class="field-error" id="category-error"></small></div></div>
+          <div class="form-row"><div class="field"><label for="expense-date">Date</label><input id="expense-date" name="date" type="date" required><small class="field-error" id="date-error"></small></div><div class="field"><label for="expense-note">Note <span class="optional">(optional)</span></label><input id="expense-note" name="note" type="text" maxlength="250" placeholder="Add a little detail"></div></div>
+          <div class="form-actions"><button class="button button-primary submit-button" id="submit-expense" type="submit">Save expense <span>↗</span></button><button class="button button-quiet" id="cancel-edit" type="button" hidden>Cancel edit</button></div><p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="about-section section-wrap" id="about"><div class="about-mark">C</div><div><span class="eyebrow">MADE FOR STUDENT LIFE</span><h2>Less money stress.<br><span>More room to grow.</span></h2></div><p>CampusCash helps students build healthy money habits without complicated spreadsheets. Track spending, set a budget, and keep your goals close.</p></section>
+  </main>
+  <footer class="footer"><a class="brand" href="#home"><span class="brand-mark">C</span><span>Campus<span class="brand-accent">Cash</span></span></a><span>Made for the next generation of money-smart students.</span><a href="#home">Back to top ↑</a></footer>
+
+  <dialog id="budget-dialog" class="budget-dialog"><form id="budget-form" method="dialog"><button type="button" class="dialog-close" id="close-budget" aria-label="Close">×</button><span class="eyebrow">YOUR MONTHLY PLAN</span><h2>Set your budget</h2><p>Choose a monthly spending limit that works for you.</p><label for="budget-amount">Monthly budget (₹)</label><input id="budget-amount" type="number" min="0" max="100000000" step="0.01" placeholder="e.g. 8000" required><div class="dialog-actions"><button type="button" class="button button-quiet" id="cancel-budget">Cancel</button><button type="submit" class="button button-primary" id="save-budget">Save budget</button></div><p id="budget-status" class="form-status" role="status"></p></form></dialog>
+</body>
+</html>
